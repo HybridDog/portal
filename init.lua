@@ -86,4 +86,4 @@ minetest.register_on_punchnode(function(pos, node, puncher)
 		end
 	end
 end)
-print(string.format("[portal] loaded after ca. %.2fs", os.clock() - load_time_start))
+minetest.log("info", string.format("[portal] loaded after ca. %.2fs", os.clock() - load_time_start))
