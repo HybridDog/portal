@@ -16,7 +16,7 @@ local function sandport(pos)
 	for i = -1,1,2 do
 		for j = -1,1,2 do
 			if nodes[area:index(pos.x+i, pos.y+2, pos.z+j)] ~= c_torch
-			or minetest.env:get_node({x=pos.x+i, y=pos.y+2, z=pos.z+j}).param2 ~= 1
+			or minetest.get_node({x=pos.x+i, y=pos.y+2, z=pos.z+j}).param2 ~= 1
 			or nodes[area:index(pos.x+i, pos.y+1, pos.z+j)] ~= c_sand
 			or nodes[area:index(pos.x+i, pos.y, pos.z+j)] ~= c_sand then
 				return false
@@ -24,8 +24,8 @@ local function sandport(pos)
 		end
 		if nodes[area:index(pos.x+i, pos.y-2, pos.z+i*2)] ~= c_mese
 		or nodes[area:index(pos.x+i*2, pos.y-2, pos.z+i)] ~= c_mese
-		or (not minetest.registered_nodes[minetest.env:get_node({x=pos.x+i*2, y=pos.y-1, z=pos.z}).name].walkable)
-		or (not minetest.registered_nodes[minetest.env:get_node({x=pos.x, y=pos.y-1, z=pos.z+i*2}).name].walkable)
+		or (not minetest.registered_nodes[minetest.get_node({x=pos.x+i*2, y=pos.y-1, z=pos.z}).name].walkable)
+		or (not minetest.registered_nodes[minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z+i*2}).name].walkable)
 		or nodes[area:index(pos.x+i, pos.y, pos.z)] ~= c_sand
 		or nodes[area:index(pos.x, pos.y, pos.z+i)] ~= c_sand
 		or nodes[area:index(pos.x+i*2, pos.y, pos.z)] ~= c_water
@@ -37,7 +37,7 @@ local function sandport(pos)
 		for i = -k,k,2*k do
 			for j = -k,k,2*k do
 				if nodes[area:index(pos.x+i, pos.y, pos.z+j)] ~= c_torch
-				or minetest.env:get_node({x=pos.x+i, y=pos.y, z=pos.z+j}).param2 ~= 1 then
+				or minetest.get_node({x=pos.x+i, y=pos.y, z=pos.z+j}).param2 ~= 1 then
 					return false
 				end
 			end
@@ -53,58 +53,58 @@ end
 local function desert_stoneport(pos)
 	for i = -1,1,2 do
 		for _, a in ipairs({0,2,6}) do
-			if minetest.env:get_node({x=pos.x+i, y=pos.y+a, z=pos.z}).name ~= "default:desert_stone"
-			or minetest.env:get_node({x=pos.x, y=pos.y+a, z=pos.z+i}).name ~= "default:desert_stone" then
+			if minetest.get_node({x=pos.x+i, y=pos.y+a, z=pos.z}).name ~= "default:desert_stone"
+			or minetest.get_node({x=pos.x, y=pos.y+a, z=pos.z+i}).name ~= "default:desert_stone" then
 				return false
 			end
 		end
-		if minetest.env:get_node({x=pos.x+i, y=pos.y+1, z=pos.z}).name ~= "default:water_flowing"
-		or minetest.env:get_node({x=pos.x, y=pos.y+1, z=pos.z+i}).name ~= "default:water_flowing" then
+		if minetest.get_node({x=pos.x+i, y=pos.y+1, z=pos.z}).name ~= "default:water_flowing"
+		or minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z+i}).name ~= "default:water_flowing" then
 			return false
 		end
 		for a = 3,5,1 do
-			if minetest.env:get_node({x=pos.x+i, y=pos.y+a, z=pos.z}).name ~= "air"
-			or minetest.env:get_node({x=pos.x, y=pos.y+a, z=pos.z+i}).name ~= "air" then
+			if minetest.get_node({x=pos.x+i, y=pos.y+a, z=pos.z}).name ~= "air"
+			or minetest.get_node({x=pos.x, y=pos.y+a, z=pos.z+i}).name ~= "air" then
 				return false
 			end
 		end
-		if minetest.env:get_node({x=pos.x+i, y=pos.y+7, z=pos.z}).name ~= "default:water_source"
-		or minetest.env:get_node({x=pos.x, y=pos.y+7, z=pos.z+i}).name ~= "default:water_source" then
+		if minetest.get_node({x=pos.x+i, y=pos.y+7, z=pos.z}).name ~= "default:water_source"
+		or minetest.get_node({x=pos.x, y=pos.y+7, z=pos.z+i}).name ~= "default:water_source" then
 			return false
 		end
 		for j = -1,1,2 do
 			for _, a in ipairs({0,2,6}) do
-				if minetest.env:get_node({x=pos.x+i, y=pos.y+a, z=pos.z+j}).name ~= "default:desert_stone" then
+				if minetest.get_node({x=pos.x+i, y=pos.y+a, z=pos.z+j}).name ~= "default:desert_stone" then
 					return false
 				end
 			end
-			if minetest.env:get_node({x=pos.x+i, y=pos.y+1, z=pos.z+j}).name ~= "default:mese"
-			or minetest.env:get_node({x=pos.x+i, y=pos.y+7, z=pos.z+j}).name ~= "default:mese"
-			or minetest.env:get_node({x=pos.x+i, y=pos.y+8, z=pos.z+j}).name ~= "default:torch"
-			or minetest.env:get_node({x=pos.x+i, y=pos.y+8, z=pos.z+j}).param2 ~= 1 then
+			if minetest.get_node({x=pos.x+i, y=pos.y+1, z=pos.z+j}).name ~= "default:mese"
+			or minetest.get_node({x=pos.x+i, y=pos.y+7, z=pos.z+j}).name ~= "default:mese"
+			or minetest.get_node({x=pos.x+i, y=pos.y+8, z=pos.z+j}).name ~= "default:torch"
+			or minetest.get_node({x=pos.x+i, y=pos.y+8, z=pos.z+j}).param2 ~= 1 then
 				return false
 			end
 			for a = 3,5,1 do
-				if minetest.env:get_node({x=pos.x+i, y=pos.y+a, z=pos.z+j}).name ~= "default:wood" then
+				if minetest.get_node({x=pos.x+i, y=pos.y+a, z=pos.z+j}).name ~= "default:wood" then
 					return false
 				end
 			end
 		end
 	end
 	for k = 1,6,1 do
-		if minetest.env:get_node({x=pos.x, y=pos.y+k, z=pos.z}).name ~= "default:water_flowing" then
+		if minetest.get_node({x=pos.x, y=pos.y+k, z=pos.z}).name ~= "default:water_flowing" then
 			return false
 		end
 	end
 	for k = 2,3,1 do
 		for i = -k,k,2*k do
 			for j = -k,k,2*k do
-				if minetest.env:get_node({x=pos.x+i, y=pos.y+3, z=pos.z+j}).name ~= "default:torch"
-				or minetest.env:get_node({x=pos.x+i, y=pos.y+3, z=pos.z+j}).param2 ~= 1
-				or minetest.env:get_node({x=pos.x+i, y=pos.y+5, z=pos.z+j}).name ~= "default:torch"
-				or minetest.env:get_node({x=pos.x+i, y=pos.y+5, z=pos.z+j}).param2 ~= 0
-				or minetest.env:get_node({x=pos.x+i, y=pos.y+2, z=pos.z+j}).name ~= "default:desert_stone"
-				or minetest.env:get_node({x=pos.x+i, y=pos.y+6, z=pos.z+j}).name ~= "default:desert_stone" then
+				if minetest.get_node({x=pos.x+i, y=pos.y+3, z=pos.z+j}).name ~= "default:torch"
+				or minetest.get_node({x=pos.x+i, y=pos.y+3, z=pos.z+j}).param2 ~= 1
+				or minetest.get_node({x=pos.x+i, y=pos.y+5, z=pos.z+j}).name ~= "default:torch"
+				or minetest.get_node({x=pos.x+i, y=pos.y+5, z=pos.z+j}).param2 ~= 0
+				or minetest.get_node({x=pos.x+i, y=pos.y+2, z=pos.z+j}).name ~= "default:desert_stone"
+				or minetest.get_node({x=pos.x+i, y=pos.y+6, z=pos.z+j}).name ~= "default:desert_stone" then
 					return false
 				end
 			end
